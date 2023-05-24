@@ -70,7 +70,7 @@ $(document).ready(function() {
     
     // Display filtered results
     filteredData.forEach(function(item) {
-      $('#accuracy').append(chartData.accuracy);
+      $('#accuracy').append(chartData.accuracy+ '%');
     });
 
         // Clear existing chart if any
@@ -109,7 +109,7 @@ const xScale = d3.scaleBand()
 
 // Create the y-scale
 const yScale = d3.scaleLinear()
-  .domain([0, d3.max(dataValues)])
+  .domain([0, 110])
   .range([height, 0]);
 
 // Create the x-axis
@@ -136,7 +136,7 @@ svg.append('text')
   .attr('y', -margin.left + 10)
   .attr('fill', 'black')
   .attr('text-anchor', 'middle')
-  .text('Accuracy');
+  .text('Accuracy (%)');
 
 // Create the bars
 svg.selectAll('.bar')
@@ -148,7 +148,10 @@ svg.selectAll('.bar')
   .attr('y', d => yScale(d))
   .attr('width', xScale.bandwidth())
   .attr('height', d => height - yScale(d))
-  .attr('fill', '#ffdef3');
+  .attr('fill', '#ffdef3')
+  .attr('rx', 5) // Add rounded corners
+  .attr('ry', 5); // Add rounded corners
+
 
 // Add labels to the bars
 svg.selectAll('.label')
@@ -159,7 +162,7 @@ svg.selectAll('.label')
   .attr('x', (d, i) => xScale(labels[i]) + xScale.bandwidth() / 2)
   .attr('y', d => yScale(d) - 5)
   .attr('text-anchor', 'middle')
-  .text(d => d);
+  .text(d => d + '%');
 
 
       }
